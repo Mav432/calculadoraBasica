@@ -5,19 +5,20 @@ import Calculadora1 from './src/screens/Calculadora1';
 import Header from './src/components/Header';
 import Footer from './src/components/Footer';
 import CalculadoraPropinas from './src/screens/CaluladoraPropinas';
+import Weather from './src/screens/Weather';
 
 const App = () => {
   return (
     <View style={styles.container}>
       <Header 
-        Titulo='Calculadora de Propinas'
+        Titulo='Climas'
         nombre='Maverick'
         imagen={require('./assets/images/img-profile.jpg')}
         color='#4B0082' // Cambia a un color más moderno
       />
 
       <View style={styles.content}>
-        <CalculadoraPropinas/>
+        <Weather/>
       </View>
       
       <Footer 
