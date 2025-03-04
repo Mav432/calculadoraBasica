@@ -21,7 +21,8 @@ const Weather: React.FC = () => {
     //estado controla indicador de carga
     const [loading, setLoading] = useState<boolean>(true);
 
-    const API_KEY = '4d445eedf41f49a7b7c141522240411';
+    //const API_KEY = '4d445eedf41f49a7b7c141522240411';
+    const API_KEY = '343b477f73084abc85d150410252602'; // nueva clave
     const CITY = 'Hidalgo';
 
     // usseEfect para obtener la info del clima

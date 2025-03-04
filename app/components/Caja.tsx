@@ -15,14 +15,14 @@ type Props = {
 const Caja: React.FC<Props> = ({ label, icono, color = 'black', onChangeText, value }) => {
     return (
         // Contenedor principal
-        <View style={[styles.container, { borderBottomColor: color}]}>
+        <View style={[styles.container, { borderBottomColor: color }]}>
             <Text style={[styles.label, { color }]}>{label}</Text>
             <View style={styles.caja}>
                 {icono}
                 <TextInput
                     placeholder={label}
                     placeholderTextColor={color}
-                    style={[styles.input, { color}]}
+                    style={[styles.input, { color }]}
                     onChangeText={onChangeText}
                     value={value}
                 />

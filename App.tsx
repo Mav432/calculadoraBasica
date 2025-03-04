@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Toast from 'react-native-toast-message';
-import Calculadora1 from './src/screens/Calculadora1';
-import Header from './src/components/Header';
-import Footer from './src/components/Footer';
-import CalculadoraPropinas from './src/screens/CaluladoraPropinas';
-import Weather from './src/screens/Weather';
+import Calculadora1 from './app/screens/Calculadora1';
+import Header from './app/components/Header';
+import Footer from './app/components/Footer';
+import CalculadoraPropinas from './app/screens/CaluladoraPropinas';
+import Weather from './app/screens/Weather';
 
 const App = () => {
   return (
