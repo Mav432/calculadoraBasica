@@ -1,89 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
-import { useRouter, useLocalSearchParams } from 'expo-router';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import Boton from '../../app-temp/components/Boton'
+import Foother from '../../app-temp/components/Footer'
+import Header from '../../app-temp/components/Header'
+import { useLocalSearchParams } from 'expo-router'
 
-const ProductDetail = () => {
-  const router = useRouter();
-  const { id } = useLocalSearchParams();
-  const [product, setProduct] = useState<any>(null);
+const productodetalle = () => {
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-        const data = await response.json();
-        setProduct(data);
-      } catch (error) {
-        console.error('Error fetching product:', error);
-      }
-    };
+    const {id}=useLocalSearchParams();
 
-    fetchProduct();
-  }, [id]);
+    type producto={
+        id: number,
+        title: string,
+        price: number,
+        description: string,
+        category: string,
+        image: string,
+        rating: {
+            rate: number,
+            count: number
+        }
+    }
 
-  if (!product) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Cargando...</Text>
-      </View>
-    );
-  }
+    const [Product,setProduct]=useState<producto>();
+    const [loading,setLoading]=useState<boolean>(true);
+
+    //pantalla unload
+    const UnLoadScreen=()=>{
+        return(
+            <View>
+                <Text>Esperando Datos...</Text>
+                <ActivityIndicator/>
+                <Boton titulo='Cargar datos...' 
+                onPress={()=>{Consultar()}}/>
+            </View>
+        )
+    }
+
+    //pantalla con datos cargados
+    const LoadScreen=()=>{
+        return(
+            <View>
+                <Text>Datos Cargados...</Text>
+                <Text>Producto : {Product?.title}</Text>
+                <Text>Precio : ${Product?.price}</Text>
+                <Text>Descripcion : {Product?.description}</Text>
+                <Image source={{uri:Product?.image}} style={{width:200,height:200}}/>
+            </View>
+        )
+    }
+
+    const Consultar= async ()=>{
+        setLoading(true);
+        try {
+            const respuesta= await fetch('https://fakestoreapi.com/products/'+id);
+            
+            //preguntamos si no quiso diosito
+            if(!respuesta.ok){
+                throw new Error ('Problema al obtener datos : ${respuesta.status}');
+            }
+            //si si quiso pasamos la respuesta a json
+            const datos= await respuesta.json();
+            //guardamos los datos en el estado product
+            setProduct(datos);
+            setLoading(false);
+        } catch (error) {
+            console.log('Ocurrio un error al consultar los datos....',error);
+        }
+
+    }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Detalle del Producto</Text>
-      <Text style={styles.productId}>ID del Producto: {id}</Text>
-      <Image
-        source={{ uri: product.image }}
-        style={styles.image}
-      />
-      <Text style={styles.productTitle}>{product.title}</Text>
-      <Text style={styles.productDescription}>{product.description}</Text>
-      <Text style={styles.productPrice}>${product.price}</Text>
-      <Button title="Comprar" onPress={() => alert('Producto comprado!')} />
+        <Header Titulo='Fake Store...' 
+        nombre='MTI. Luis Alberto Mendoza'
+        imagen={require('../../assets/myAvatar.png')}/>
+
+        {loading?UnLoadScreen():LoadScreen()}
+
+      <Foother Fecha='20/02/2025' Grupo='5B'/>
     </View>
-  );
-};
+  )
+}
+
+export default productodetalle
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#121212',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 20,
-  },
-  productId: {
-    fontSize: 18,
-    color: 'white',
-    marginBottom: 20,
-  },
-  image: {
-    width: '100%',
-    height: 200,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  productTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 10,
-  },
-  productDescription: {
-    fontSize: 16,
-    color: 'white',
-    marginBottom: 10,
-  },
-  productPrice: {
-    fontSize: 18,
-    color: 'white',
-    marginBottom: 20,
-  },
-});
-
-export default ProductDetail;
+    container:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'space-between',
+    }
+})

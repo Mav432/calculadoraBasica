@@ -61,19 +61,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
+    padding: 16,
     backgroundColor: '#121212',
   },
   input: {
-    backgroundColor: '#333333',
+    width: '100%',
     padding: 10,
-    marginBottom: 10,
-    color: 'white',
+    marginVertical: 5,
+    backgroundColor: '#333333',
     borderRadius: 5,
+    color: 'white',
   },
   error: {
     color: 'red',
-    marginBottom: 10,
+    marginVertical: 10,
   },
 });
 
