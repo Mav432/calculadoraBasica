@@ -1,14 +1,20 @@
-import { Stack } from "expo-router";
+// app/_layout.tsx
+import React from 'react';
+import { Stack } from 'expo-router';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '../src/theme/toastConfig';
+import { AuthProvider } from '../src/contexts/AuthContext';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const Layout=()=>{
-    return(
-        <Stack screenOptions={{headerShown:false}}>
-            <Stack.Screen name="/index" />
-            <Stack.Screen name="/propiedades" />
-            <Stack.Screen name="/(tabs)/" />
-            <Stack.Screen name="/productos/:id" options={{headerShown:true}}/>
-        </Stack>
-    )
+export default function RootLayout(): JSX.Element {
+    return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <AuthProvider>
+                {/* Stack principal de navegación sin encabezado */}
+                <Stack screenOptions={{ headerShown: false }} />
+                {/* Toast global para notificaciones */}
+                <Toast config={toastConfig} />
+            </AuthProvider>
+        </GestureHandlerRootView>
+    );
 }
-
-export default Layout;

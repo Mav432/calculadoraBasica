@@ -78,7 +78,7 @@ const productodetalle = () => {
 
         {loading?UnLoadScreen():LoadScreen()}
 
-      <Foother Fecha='20/02/2025' Grupo='5B'/>
+      <Foother Fecha='06/03/25' Grupo='5A'/>
     </View>
   )
 }

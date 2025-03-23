@@ -1,47 +1,20 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import Toast from 'react-native-toast-message';
-import Calculadora1 from './app-temp/screens/Calculadora1';
-import Header from './app-temp/components/Header';
-import Footer from './app-temp/components/Footer';
-import CalculadoraPropinas from './app-temp/screens/CaluladoraPropinas';
-import Weather from './app-temp/screens/Weather';
+// src/App.tsx
 
-const App = () => {
+import React from "react";
+import { Provider as PaperProvider } from "react-native-paper";
+import agricultureTheme from './src/theme/theme';
+import "expo-router/entry";
+
+import Toast from 'react-native-toast-message'; // Añadir esta importación
+import { toastConfig } from './src/theme/toastConfig'; // Importar configuración
+
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Header 
-        Titulo='Climas'
-        nombre='Maverick'
-        imagen={require('./assets/images/img-profile.jpg')}
-        color='#4B0082' // Cambia a un color más moderno
-      />
-
-      <View style={styles.content}>
-        <Weather/>
-      </View>
-      
-      <Footer 
-        Grupo='"A"'
-        Fecha='Febrero 2025'
-        color='#4B0082'
-      />
-      <Toast />
-    </View>
+    <PaperProvider theme={agricultureTheme}>
+      <>
+        {/* <Toast config={toastConfig} /> */}
+        <Toast config={toastConfig} />
+      </>
+    </PaperProvider>
   );
-};
-
-export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#121212', // Fondo oscuro
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-});
+}
